@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
         //notificaciones
-
-        createNotificationChannel(NotificationManager.IMPORTANCE_DEFAULT);
+        Notificaciones.createNotificationChannel(NotificationManager.IMPORTANCE_DEFAULT,MainActivity.this);
+        Notificaciones.lanzarNotificacion("Bienvenido","Ingresa tu código", NotificationManager.IMPORTANCE_DEFAULT,MainActivity.this);
         askPermission();
 
         editTextCodigo = findViewById(R.id.editTextText);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, SegundaVistaActivity.class);
                     intent.putExtra("codigo", codigo);
                     startActivity(intent);
-                    lanzarNotificacion("Bienvenidos","Gracas por ingresar",NotificationManager.IMPORTANCE_DEFAULT);
+
                 } else {
                     Toast.makeText(MainActivity.this, "Ingrese un código de 8 dígitos.", Toast.LENGTH_SHORT).show();
                 }
@@ -67,17 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void createNotificationChannel(int importancia) {
-        String channelId = "channelDefaultPri";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(channelId,
-                    "Canal notificaciones ",
-                    importancia);
-            channel.setDescription("Canal para notificaciones con prioridad default");
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 
     private void askPermission() {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
@@ -89,20 +78,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void lanzarNotificacion(String titulo, String contenido, int importancia) {
-        String channelId = "channelDefaultPri";
-         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.tarea)
-                .setContentTitle(titulo)
-                .setContentText(contenido)
-                .setPriority(importancia)
-                .setAutoCancel(true);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        if (ActivityCompat.checkSelfPermission(this, POST_NOTIFICATIONS) ==
-                PackageManager.PERMISSION_GRANTED) {
-            notificationManager.notify(1, builder.build());
-        }
-    }
 
 }

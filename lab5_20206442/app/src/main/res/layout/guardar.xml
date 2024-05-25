@@ -13,29 +13,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/atras"
-            android:layout_width="126dp"
-            android:layout_height="39dp"
-            android:background="@drawable/orange_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/Guardar"
-            app:layout_constraintHorizontal_bias="0.444"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/Guardar"
-            app:layout_constraintVertical_bias="0.0">
-
-            <TextView
-                android:id="@+id/textView33"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Atras"
-                android:textColor="#ffffff"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/Guardar"
@@ -44,10 +21,10 @@
             android:background="@drawable/orange_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.88"
+            app:layout_constraintHorizontal_bias="0.445"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.899">
+            app:layout_constraintVertical_bias="0.895">
 
             <TextView
                 android:id="@+id/textView34"
@@ -214,10 +191,41 @@
                         android:layout_marginBottom="64dp"
                         android:background="@drawable/search_background"
                         android:ems="10"
-                        android:hint="hh:mm"
-                        android:inputType="date"
+                        android:hint="Hora"
+                        android:inputType="number"
                         android:paddingStart="20dp"
                         android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:drawablePadding="10dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="350dp"
+                    android:layout_marginBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <EditText
+                        android:id="@+id/recordatoria"
+                        android:layout_width="276dp"
+                        android:layout_height="33dp"
+                        android:background="@drawable/search_background"
+                        android:ems="10"
+                        android:hint="¿Cuántas horas antes quieres tu alerta?"
+                        android:inputType="number"
+                        android:paddingStart="20dp"
                         android:textSize="14sp"
                         android:textStyle="italic"
                         app:layout_constraintBottom_toBottomOf="parent"

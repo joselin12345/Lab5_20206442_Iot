@@ -1,5 +1,6 @@
 package com.example.lab5_20206442.Activity;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lab5_20206442.Adapter.TareaAdapter;
 import com.example.lab5_20206442.Entity.TareaData;
 import com.example.lab5_20206442.MainActivity;
+import com.example.lab5_20206442.Notificaciones;
 import com.example.lab5_20206442.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,20 +43,15 @@ public class SegundaVistaActivity extends AppCompatActivity {
         // OBTENCIÓN DEL INTENT:
         Intent intent = getIntent();
         String codigo = intent.getStringExtra("codigo");
-        Log.d("msg-SEGUNDA", codigo);
+
 
         recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<TareaData> tareaData = listarArchivos();
-        /*
-        tareaData.add(new TareaData("Creación de equipo", "Joselin", "29/04/2024","29/04/2024", codigo));
-        tareaData.add(new TareaData("Edición de equipo", "Joselin", "29/04/2024","29/04/2024", codigo));
-        tareaData.add(new TareaData("Fin en sitio x", "Massiel", "28/04/2024", "29/04/2024",codigo));
-        tareaData.add(new TareaData("Borrado de equipo", "Joselin", "28/04/2024","29/04/2024", codigo));
-        tareaData.add(new TareaData("Creación de equipo", "Massiel", "27/04/2024","29/04/2024", codigo));
-        tareaData.add(new TareaData("Edición de equipo", "Joselin", "27/04/2024","29/04/2024", codigo));
-        tareaData.add(new TareaData("Edición de equipo", "Massiel", "27/04/2024","29/04/2024", codigo)); */
+        List<TareaData> tareaData = listarArchivos(codigo);
+
+        Notificaciones.createNotificationChannel(NotificationManager.IMPORTANCE_DEFAULT,SegundaVistaActivity.this);
+        Notificaciones.lanzarNotificacion("Recordatorio","Alumno " + codigo + "tienes " + tareaData.size() + " tareas" , NotificationManager.IMPORTANCE_DEFAULT,SegundaVistaActivity.this);
 
         adapter = new TareaAdapter(tareaData);
         recyclerView.setAdapter(adapter);
@@ -74,8 +71,9 @@ public class SegundaVistaActivity extends AppCompatActivity {
 
     }
 
-    private List<TareaData>   listarArchivos() {
+    private List<TareaData>   listarArchivos(String codigo) {
         String fileName = "Tareas.json";
+        List<TareaData> listaTareasFiltradas = new ArrayList<>();
         List<TareaData> listaTareas = null;
 
         try (FileInputStream fileInputStream = this.openFileInput(fileName)) {
@@ -86,14 +84,21 @@ public class SegundaVistaActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             Type type = new TypeToken<List<TareaData>>() {}.getType();
+
             listaTareas = gson.fromJson(jsonString, type);
+
+            for (TareaData tarea : listaTareas) {
+                if (tarea.getCodigo().equals(codigo)) {
+                    listaTareasFiltradas.add(tarea);
+                }
+            }
 
 
         } catch (IOException e) {
             e.printStackTrace();
             Log.d("mg-RECEPCION_DESPUESDE_GUARDAR", "error");
         }
-        return listaTareas;
+        return listaTareasFiltradas;
 
     }
 
