@@ -24,7 +24,6 @@
                 android:id="@+id/titulo"
                 android:layout_width="254dp"
                 android:layout_height="19dp"
-                android:gravity="center"
                 android:text="Titulo"
                 android:textSize="18sp"
                 android:textStyle="bold" />
